@@ -4,7 +4,7 @@ const { messageQueue, queueName } = require('./vars');
 
 const connect = async () => {
     try {
-        const connection = await amqplib.connect('amqp://localhost');
+        const connection = await amqplib.connect(`amqp://${messageQueue.host}:${messageQueue.port}`);
     
         // const ch1 = await conn.createChannel();
         // await ch1.assertQueue(queue);
