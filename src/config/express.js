@@ -9,4 +9,3 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/v1', routes);
 
 module.exports = app;
-
