@@ -10,7 +10,7 @@ const validateSendMessage = (req, res, next) => {
     const { error } = sendMessageValidationSchema.validate(req.body);
     if (error) {
         console.log('inside validateSendMessage ', error);
-        return res.send({
+        return res.status(httpStatus.BAD_REQUEST).send({
             status: false,
             error
         });

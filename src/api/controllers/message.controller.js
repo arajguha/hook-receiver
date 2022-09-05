@@ -8,11 +8,11 @@ const sendMessage = async (req, res, next) => {
     try {
         const { message } = req.body;
         sendMessageToQueue(message);
-        res.send({ status: true, message: 'message delivered' });
+        res.status(httpStatus.OK).send({ status: true, message: 'message delivered' });
 
     } catch (error) {
         console.log('error in sendMessage ', error);
-        res.send({
+        res.status(httpStatus.INTERNAL_SERVER_ERROR).send({
             status: false,
             error
         });
