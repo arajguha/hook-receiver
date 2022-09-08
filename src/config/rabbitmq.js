@@ -5,21 +5,6 @@ const { messageQueue, queueName } = require('./vars');
 const connect = async () => {
     try {
         const connection = await amqplib.connect(`amqp://${messageQueue.host}:${messageQueue.port}`);
-    
-        // const ch1 = await conn.createChannel();
-        // await ch1.assertQueue(queue);
-    
-        // Listener
-        //   ch1.consume(queue, (msg) => {
-        //     if (msg !== null) {
-        //       console.log('Recieved:', msg.content.toString());
-        //       ch1.ack(msg);
-        //     } else {
-        //       console.log('Consumer cancelled by server');
-        //     }
-        //   });
-    
-        // Sender
         const channel = await connection.createChannel();
         await channel.assertQueue(queueName, { durable: true });
         set(messageQueue, 'connection', connection);
@@ -34,7 +19,11 @@ const connect = async () => {
 };
 
 const sendMessageToQueue = async (data) => {
-    messageQueue.channel.sendToQueue(queueName, Buffer.from(JSON.stringify(data)));
+    messageQueue.channel.sendToQueue(
+        queueName, 
+        Buffer.from(JSON.stringify(data)),
+        { persistent: true }
+    );
 };
 
 // ch2.sendToQueue(queue, Buffer.from('something to do'));
