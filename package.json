@@ -23,7 +23,8 @@
     "http-status": "^1.5.2",
     "joi": "^17.6.0",
     "pm2": "^5.2.0",
-    "set-value": "^4.1.0"
+    "set-value": "^4.1.0",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.19"
