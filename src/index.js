@@ -5,7 +5,7 @@ const rabbitMq = require('./config/rabbitmq');
 const logger = require('./api/utils/logger');
 
 process.on('uncaughtException', (err) => {
-    console.log(err);
+    logger.error(err);
     process.exit(-1);
 });
 

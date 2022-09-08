@@ -10,4 +10,23 @@ log4js.configure(loggerConfig);
 const logger = log4js.getLogger();
 logger.level = env === 'development' ? 'debug' : 'production';
 
-module.exports = logger;
+class CustomLogger {
+    constructor() {
+        this.prefix = `[ worker ${process.pid}]`;
+        this.logger = logger;
+    }
+
+    info (logData) {
+        this.logger.info(`${this.prefix} ${logData}`);
+    }
+
+    debug (logData) {
+        this.debug.info(`${this.prefix} ${logData}`);
+    }
+
+    error (logData) {
+        this.logger.error(`${this.prefix} ${logData}`);
+    }
+}
+
+module.exports = new CustomLogger();
