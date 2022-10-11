@@ -4,7 +4,6 @@ const { sendMessageToQueue } = require('../../config/rabbitmq');
 const logger = require('../utils/logger');
 
 
-// TODO: add loggers
 const sendMessage = async (req, res, next) => {
     logger.debug('inside send message controller');
     try {
