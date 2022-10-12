@@ -24,8 +24,8 @@ class CustomLogger {
         this.logger.debug(`${this.prefix} ${logData}`);
     }
 
-    error (logData) {
-        this.logger.error(`${this.prefix} ${logData}`);
+    error (err) {
+        this.logger.error(`${this.prefix} ${err.message || JSON.stringify(err)}`);
     }
 }
 
