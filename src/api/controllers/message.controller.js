@@ -15,18 +15,18 @@ const sendMessage = async (req, res, next) => {
             messageId: uuid(),
             receivedAt: Date.now()
         };
-        
+
         sendMessageToQueue(queueData);
         
         if (backupService.enabled) {
             try {
-                await axios.post(`${backupService.baseUrl/v1/backup-message}`, 
+                await axios.post(`${backupService.baseUrl}/v1/backup-message`, 
                 { ...queueData, message: JSON.stringify(message) }
                 , {
                         headers: { 'Content-Type': 'application/json' }
                 });
             } catch (err) {
-                console.log('axios err ', err.response.data);
+                console.log('axios err ', err?.response?.data);
                 logger.error('axios error ', err.message || JSON.stringify(err?.response?.data));
             }
         }
@@ -34,6 +34,7 @@ const sendMessage = async (req, res, next) => {
         res.status(httpStatus.OK).send({ status: true, message: 'message delivered' });
 
     } catch (error) {
+        console.log('error in sendMessage ', error);
         logger.error('error in sendMessage ', error);
         res.status(httpStatus.INTERNAL_SERVER_ERROR).send({
             status: false,

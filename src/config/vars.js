@@ -11,7 +11,7 @@ module.exports = {
     queueName: process.env.QUEUE_NAME || 'webhook_tasks',
     env: process.env.NODE_ENV || 'production',
     backupService: {
-        enabled: process.env.BACKUP_ENABLED && process.env.BACKUP_ENABLED === 'true',
+        enabled: process.env.BACKUP_ENABLED ? process.env.BACKUP_ENABLED === 'true' : false,
         baseUrl: process.env.BACKUP_SERVICE_BASE_URL || "http://localhost:8083",
     }
 }
